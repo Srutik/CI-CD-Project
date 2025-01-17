@@ -12,10 +12,10 @@ pipeline {
             }
         }
         stage('Build Artifacts') {
-            steps {
-                bat 'npm run build'
-            }
-        }
+    steps {
+        echo 'No build step required for this project.'
+    }
+}
     }
 }
 
