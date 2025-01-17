@@ -7,7 +7,6 @@ pipeline {
 
     environment {
         APP_NAME = 'basic-node-app'
-        PORT = '3000'
     }
 
     stages {
@@ -31,18 +30,9 @@ pipeline {
 
         stage('Build Artifacts') {
             steps {
-                sh 'tar -czf ${APP_NAME}.tar.gz *'
-                archiveArtifacts artifacts: "${APP_NAME}.tar.gz", fingerprint: true
-            }
-        }
-
-        stage('Deploy to Server') {
-            steps {
-                // Example deployment script (SSH or other methods)
-                sh '''
-                scp ${APP_NAME}.tar.gz user@remote-server:/path/to/deploy
-                ssh user@remote-server "cd /path/to/deploy && tar -xzf ${APP_NAME}.tar.gz && npm install && pm2 restart all"
-                '''
+                // Create a zip artifact containing all project files
+                sh 'zip -r ${APP_NAME}.zip *'
+                archiveArtifacts artifacts: "${APP_NAME}.zip", fingerprint: true
             }
         }
     }
