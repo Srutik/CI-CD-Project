@@ -18,20 +18,20 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                bat 'npm install'
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh 'npm test'
+                bat 'npm test'
             }
         }
 
         stage('Build Artifacts') {
             steps {
                 // Create a zip artifact containing all project files
-                sh 'zip -r ${APP_NAME}.zip *'
+                bat 'zip -r ${APP_NAME}.zip *'
                 archiveArtifacts artifacts: "${APP_NAME}.zip", fingerprint: true
             }
         }
